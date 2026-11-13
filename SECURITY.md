@@ -1,11 +1,10 @@
-# Security
+# Security notes — quorum
 
-| Surface | Closed by |
+| Mitigated | Behavior |
 | --- | --- |
-| Duplicate report | refused |
-| Late report | strike, not counted |
-| Silent past deadline | strike |
-| Threshold > N | refused at open |
-| Serial late/silent | suspend at MAX_STRIKES |
+| Unknown / suspended oracle | refused |
+| Late / duplicate | late strikes or refuse |
+| Under threshold at deadline | failed |
+| Bad entropy format | refused |
 
-Not claimed: live oracle auth, stake/slashing tokens, wasm.
+Production: authenticated oracle identities, economic bonds, and stronger combine than educational XOR if needed.

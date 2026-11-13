@@ -1,7 +1,28 @@
-# Education
+# Education — M-of-N oracle quorum
 
-A single oracle is a single point of failure and of bias. An M-of-N quorum requires several independent reports before entropy is final.
+> **Rung:** `npm test` passes. Prefer [orng.wax](https://github.com/worldwide-asset-exchange/wax-orng) on WAX.  
+> Educational multi-oracle model with strikes and XOR combine.
 
-Late reports are worse than silence if they can still sway the mix after others have spoken — so they are rejected and the reporter is struck. Silence past the deadline is also struck, so an oracle cannot free-ride forever.
+## What you should be able to do
 
-`MAX_STRIKES` suspends a serial offender so the set can rotate without a manual admin pass every time.
+| Level | Skill |
+| --- | --- |
+| Beginner | Threshold of distinct on-time reports |
+| Intermediate | Late and silent oracles take strikes |
+| Masterclass | Combined entropy = XOR sorted by oracle id |
+
+## Beginner
+
+Open a session with N oracle ids and threshold M ≤ N. Reports after deadline are late (strike, not counted). When M distinct on-time reports exist → phase `quorum`.
+
+## Intermediate
+
+`closeDeadline` strikes silent non-suspended oracles. If still under threshold → `failed`. Five strikes → `suspended`.
+
+## Masterclass
+
+`combineEntropy` XORs reports in **sorted oracle id order** so combination is order-independent. Suspended oracles cannot submit.
+
+## Will not teach
+
+TLS / BLS verification of real feeds, or that this replaces orng.wax on WAX mainnet.

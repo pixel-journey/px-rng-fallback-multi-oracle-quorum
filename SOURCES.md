@@ -1,19 +1,11 @@
 # Official sources
 
-M-of-N quorum is a design pattern. On WAX the native randomness service is still [orng.wax](https://github.com/worldwide-asset-exchange/wax-orng).
-
 | Source | Use |
 | --- | --- |
-| [wax-orng](https://github.com/worldwide-asset-exchange/wax-orng) | Primary on-chain randomness |
-| [docs.wax.io](https://docs.wax.io/) | WAX development |
-| [docs.eosnetwork.com](https://docs.eosnetwork.com/) | Permissions, time, actions |
+| [wax-orng](https://github.com/worldwide-asset-exchange/wax-orng) | Preferred WAX RNG |
+| [docs.wax.io](https://docs.wax.io/) | Network docs |
+| [RNG tutorial](https://docs.wax.io/build/tutorials/create-wax-rng-smart-contract/rng_sample) | Sample path |
 
-This lab does not verify oracle signatures. Strikes and XOR combination are educational rules only.
+## Related
 
-## Domain map
-
-| Repo | Role |
-| --- | --- |
-| ORNG domain | Native oracle |
-| [px-rng-fallback-drand-bls-verifier](https://github.com/pixel-journey/px-rng-fallback-drand-bls-verifier) | Single external beacon |
-| **This repo** | Threshold of independent reports + strikes |
+[commit-reveal](https://github.com/pixel-journey/px-rng-fallback-commit-reveal) · [ORNG path](https://github.com/pixel-journey/px-contract-examples-vault/blob/main/docs/ORNG-LEARNING-PATH.md)
