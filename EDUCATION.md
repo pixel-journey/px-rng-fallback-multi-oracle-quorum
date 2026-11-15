@@ -1,28 +1,17 @@
-# Education — M-of-N oracle quorum
+# Education — multi-oracle quorum
 
-> **Rung:** `npm test` passes. Prefer [orng.wax](https://github.com/worldwide-asset-exchange/wax-orng) on WAX.  
-> Educational multi-oracle model with strikes and XOR combine.
-
-## What you should be able to do
-
-| Level | Skill |
-| --- | --- |
-| Beginner | Threshold of distinct on-time reports |
-| Intermediate | Late and silent oracles take strikes |
-| Masterclass | Combined entropy = XOR sorted by oracle id |
+When a single randomness provider is insufficient, require M of N independent reports before combining entropy.
 
 ## Beginner
 
-Open a session with N oracle ids and threshold M ≤ N. Reports after deadline are late (strike, not counted). When M distinct on-time reports exist → phase `quorum`.
+Open a session with a deadline and threshold. Each oracle may report once. When reports ≥ threshold, phase becomes `quorum`.
 
 ## Intermediate
 
-`closeDeadline` strikes silent non-suspended oracles. If still under threshold → `failed`. Five strikes → `suspended`.
+Late reports strike without counting. Deadline close strikes silent oracles. Suspension after MAX_STRIKES. Combined bytes are deterministic from oracle id order.
 
-## Masterclass
+## Outcomes
 
-`combineEntropy` XORs reports in **sorted oracle id order** so combination is order-independent. Suspended oracles cannot submit.
-
-## Will not teach
-
-TLS / BLS verification of real feeds, or that this replaces orng.wax on WAX mainnet.
+1. Reach 2-of-3 and read combined length 64.
+2. Show late report does not enter the report map.
+3. Show order-independent combined entropy.
