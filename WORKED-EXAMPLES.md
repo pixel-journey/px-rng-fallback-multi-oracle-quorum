@@ -1,25 +1,35 @@
-# Worked examples — quorum
+# Worked examples — M-of-N oracle quorum
 
-## Example A — reach quorum
+Educational fallback. Not `orng.wax`. `T0` in the tests is `1_700_000_000`. Deadline is `T0 + 60`. Oracles are `ora_a`, `ora_b`, `ora_c`. Threshold is `2` unless a test says otherwise.
 
-3 oracles, threshold 2: two on-time reports → phase `quorum`, `combined` set.
+Entropy samples are 64 hex chars: `E1` is `11` repeated, `E2` is `22` repeated.
 
-## Example B — late report
+## Reach quorum
 
-`reportedTs > deadline` → reason `late`, strike incremented, report not stored.
+1. `ora_a` reports `E1` at `T0 + 10`. Phase stays `open`.
+2. `ora_b` reports `E2` at `T0 + 20`. Phase becomes `quorum`. `combined` is 64 hex chars.
 
-## Example C — duplicate
+Submitting `ora_b` first and `ora_a` second yields the **same** `combined` string. Mix is XOR in oracle-id order, not arrival order.
 
-Second report from same oracle → `duplicate`.
+## Failures that do not count as reports
 
-## Example D — deadline close
+| Event | Result |
+| --- | --- |
+| `ora_a` reports twice | second is `duplicate`; the second entropy is ignored |
+| `ora_a` at `T0 + 61` | `late`; strike `1` on `ora_a`; report set stays empty |
+| `ora_x` | `unknown oracle` |
+| entropy `zz` | `bad entropy` |
+| threshold `3` with only two oracle ids | `bad threshold` |
+| oracle id listed twice | `duplicate oracle` |
 
-After deadline, silent oracles struck; if reports ≥ threshold → quorum else failed.
+## Silence
 
-## Example E — suspension
+`ora_a` reports at `T0 + 1`. `closeDeadline` at `T0 + 60` sets phase `failed`. `ora_b` and `ora_c` gain one strike. `ora_a` stays at zero strikes.
 
-After MAX_STRIKES (5), oracle suspended; further submits refused.
+## Suspension
 
-## Example F — XOR order
+A two-oracle session with threshold 2. Each `closeDeadline` while the phase is forced back to `open` adds a strike. After `MAX_STRIKES` closes, `isSuspended` is true for both ids. The test does not slash a token.
 
-Same two entropies in different arrival order still produce the same `combined` (ids sorted).
+## Not in this repo
+
+No signature check on the oracle, no bond, no `orng.wax` job. A suspended flag is a counter, not an on-chain ban.
