@@ -1,17 +1,33 @@
-# Tips — multi-oracle quorum
+# Tips — multi-oracle quorum (fallback)
+
+M-of-N reports combine (this lab: ordered XOR / structural merge). **Not** BLS aggregation. Prefer [orng.wax](https://github.com/worldwide-asset-exchange/wax-orng) on WAX.
 
 ## Do
 
-- Sort oracle ids before combining.  
-- Strike late and silent participants.  
+- Sort oracle ids **before** combining so report order does not change the result.
+- Strike late and silent participants; track strikes per oracle.
 - Cap session open time with a hard deadline.
+- Refuse a second report from the same oracle for the same session.
 
 ## Don't
 
-- Accept two reports from one oracle.  
-- Raise threshold above N.  
-- Ship without documenting "structural only, not BLS."
+- Raise threshold above N.
+- Ship without the line “structural only, not BLS.”
+- Let a single oracle report twice under two aliases.
 
-## Related
+## Common mistakes
 
-[drand](https://github.com/pixel-journey/px-rng-fallback-drand-bls-verifier) · [TAPOS](https://github.com/pixel-journey/px-rng-fallback-future-block-tapos) · [commit-reveal](https://github.com/pixel-journey/px-rng-fallback-commit-reveal) · [orng dual-callback](https://github.com/pixel-journey/px-orng-dual-callback-idempotent)
+1. Combining reports in arrival order (non-deterministic across nodes).
+2. Threshold 1 of N while advertising “decentralized.”
+3. No strike ledger → one dead oracle freezes every session forever.
+4. Treating the XOR of user-supplied hex as a verified signature.
+
+## Nice-to-have extensions (not in this repo)
+
+| Idea | Note |
+| --- | --- |
+| Real threshold signatures | Outside this TypeScript structural lab |
+| Stake-weighted oracles | New governance surface |
+| Fallback to TAPOS if quorum fails | [TAPOS](https://github.com/pixel-journey/px-rng-fallback-future-block-tapos) |
+
+Related: [drand](https://github.com/pixel-journey/px-rng-fallback-drand-bls-verifier) · [TAPOS](https://github.com/pixel-journey/px-rng-fallback-future-block-tapos) · [commit-reveal](https://github.com/pixel-journey/px-rng-fallback-commit-reveal) · [dual-callback](https://github.com/pixel-journey/px-orng-dual-callback-idempotent) · [ORNG path](https://github.com/pixel-journey/px-contract-examples-vault/blob/main/docs/ORNG-LEARNING-PATH.md)
