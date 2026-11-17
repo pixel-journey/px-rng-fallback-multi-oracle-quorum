@@ -1,10 +1,11 @@
-# Security notes — quorum
+# Security — oracle quorum
 
-| Mitigated | Behavior |
-| --- | --- |
-| Unknown / suspended oracle | refused |
-| Late / duplicate | late strikes or refuse |
-| Under threshold at deadline | failed |
-| Bad entropy format | refused |
+## Closed in tests
 
-Production: authenticated oracle identities, economic bonds, and stronger combine than educational XOR if needed.
+Duplicate report; late report; deadline failure strikes; suspension; bad shapes; order-independent combine.
+
+## Not closed
+
+Cryptographic authenticity of reports, sybil oracles, collusion of M members, live networking.
+
+Structural accounting only.
