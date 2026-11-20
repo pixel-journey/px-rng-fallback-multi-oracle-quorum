@@ -25,4 +25,4 @@ This lab is **structural** M-of-N accounting (strikes, suspension, order-indepen
 | [drand](https://github.com/pixel-journey/px-rng-fallback-drand-bls-verifier) | Post-bet time gate |
 | [TAPOS](https://github.com/pixel-journey/px-rng-fallback-future-block-tapos) | Future-block delay |
 | [commit-reveal](https://github.com/pixel-journey/px-rng-fallback-commit-reveal) | Bonded reveal |
-| [ORNG path](https://github.com/pixel-journey/px-contract-examples-vault/blob/main/docs/ORNG-LEARNING-PATH.md) | Full curriculum order |
+| `px-contract-examples-vault` (private index; not this public course) | Full curriculum order |
